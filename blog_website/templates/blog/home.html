@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome to my blog website{% endblock title %}
+
+{% block content %}
+
+<style>
+.post_title{
+    text-decoration: none !important;
+}
+
+</style>
+
+<h1>My Blog Lists</h1>
+
+{% for post in posts %}
+
+    
+    <a href="{{post.get_absolute_url}}" class="post_title">{{post.title}}</a>
+
+    
+
+    <p id="date">
+        Published {{post.publish}} by {{post.author}}
+    </p>
+
+    {{post.content | truncatewords:30 | linebreaks }}
+
+{% endfor %}
+
+{% comment %} inheritence of pagintation.html file {% endcomment %}
+{% comment %} {% include 'pagination.html' with page=posts %} # It is a function ased {% endcomment %}
+
+{% include 'pagination.html' with page=page_obj %} 
+{% comment %} passes the page request using page_obj {% endcomment %}
+
+{% endblock content %}
+ 
+
+
