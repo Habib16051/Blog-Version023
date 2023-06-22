@@ -1,20 +1,21 @@
-{% extends 'base.html' %}
-{% block title %}
-{{post.title}}
-{% endblock title %}
-
-
+{% extends 'base.html' %} {% block title %} {{post.title}} {% endblock title %}
 {% block content %}
 
-<h1>{{post.title}}</h1>
-<p class='date'>
-    
-    
-    Published {{post.publish}} by {{post.author}}
+<style>
+  .post_title {
+    text-decoration: none;
+  }
+</style>
 
-</p>
+<h1>{{post.title}}</h1>
+<p class="date">Published {{post.publish}} by {{post.author}}</p>
 
 {{post.content | linebreaks}}
 
+<p>
+  <a href="{% url 'blog:post_share' post.id %}" class="post_title"
+    >Share this post</a
+  >
+</p>
 
 {% endblock content %}

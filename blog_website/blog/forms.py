@@ -5,4 +5,4 @@ class EmailPostForm(forms.Form):
     name = forms.CharField(max_length=25)
     email = forms.EmailField()
     to = forms.EmailField()
-    commennt = forms.CharField(required=False, widget=forms.Textarea)
+    comments = forms.CharField(required=False, widget=forms.Textarea)
