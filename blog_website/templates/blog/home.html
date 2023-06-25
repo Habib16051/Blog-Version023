@@ -1,40 +1,42 @@
 {% extends 'base.html' %}
-
-{% block title %}Welcome to my blog website{% endblock title %}
-
+<br />
+{% block title %}Welcome to my blog website {% endblock title %}
+<br />
 {% block content %}
 
 <style>
-.post_title{
+  .post_title {
     text-decoration: none !important;
-}
-
+  }
 </style>
 
 <h1>My Blog Lists</h1>
 
+{% if tag %}
+<h2>Post tagged with "{{tag.name}}"</h2>
+{% endif %}
+<br />
 {% for post in posts %}
 
-    
-    <a href="{{post.get_absolute_url}}" class="post_title">{{post.title}}</a>
+<a href="{{post.get_absolute_url}}" class="post_title">{{post.title}}</a>
 
-    
+<p class="tags">
+  Tags: {% for tag in post.tags.all %}
 
-    <p id="date">
-        Published {{post.publish}} by {{post.author}}
-    </p>
+  <a href="{% url 'blog:post_list_by_tag' tag.slug %}"> {{tag.name}}</a>
 
-    {{post.content | truncatewords:30 | linebreaks }}
+  {% if not forloop.last %}, {% endif %} {% endfor %}
+</p>
 
-{% endfor %}
+<p id="date">Published {{post.publish}} by {{post.author}}</p>
 
-{% comment %} inheritence of pagintation.html file {% endcomment %}
-{% comment %} {% include 'pagination.html' with page=posts %} # It is a function ased {% endcomment %}
+{{post.content | truncatewords:30 | linebreaks }} {% endfor %} {% comment %}
+inheritence of pagintation.html file {% endcomment %} {% comment %} {% include
+'pagination.html' with page=posts %} # It is a function ased {% endcomment %}
+<br />
+<!-- passes the page -->
+<!-- request using page_obj   -->
+{% include 'pagination.html' with page=posts %}
 
-{% include 'pagination.html' with page=page_obj %} 
-{% comment %} passes the page request using page_obj {% endcomment %}
-
+<br />
 {% endblock content %}
- 
-
-

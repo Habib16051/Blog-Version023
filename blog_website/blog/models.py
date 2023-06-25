@@ -3,9 +3,10 @@ from django.db.models.query import QuerySet
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
-
+from taggit.managers import TaggableManager
 
 # Custom Model Managers
+
 
 class PublishedManager(models.Manager):
 
@@ -21,7 +22,7 @@ class Post(models.Model):
         DRAFT = 'DF', 'Draft'
         PUBLISHED = 'PB', 'Published'
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='blog_posts')
+        User, on_delete=models.CASCADE, related_name='blog_posts')  # type: ignore
     title = models.CharField(max_length=200)
     content = models.TextField()
     image = models.ImageField(upload_to='media/images')
@@ -38,6 +39,9 @@ class Post(models.Model):
     # Custom Manager
     published = PublishedManager()
 
+    # tags manager
+    tags = TaggableManager()
+
     class Meta:
         ordering = ['-publish']
         indexes = [models.Index(fields=['-publish']),]
@@ -47,4 +51,25 @@ class Post(models.Model):
     # make the url more dynamically to interact with the view more fastly
 
     def get_absolute_url(self):
+        # type: ignore
         return reverse("blog:post_detail", args=[self.publish.year, self.publish.month, self.publish.day, self.slug])
+
+
+# models for handling the comment section
+class Comment(models.Model):
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name='comments')
+
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['created']
+        indexes = [models.Index(fields=['created']),]
+
+    def __str__(self):
+        return f"comment by {self.name} on {self.post}"
