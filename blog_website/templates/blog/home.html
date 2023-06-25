@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load blog_tags %}
 <br />
 {% block title %}Welcome to my blog website {% endblock title %}
 <br />
@@ -30,7 +30,7 @@
 
 <p id="date">Published {{post.publish}} by {{post.author}}</p>
 
-{{post.content | truncatewords:30 | linebreaks }} {% endfor %} {% comment %}
+{{post.content |markdown|truncatewords:30 }} {% endfor %} {% comment %}
 inheritence of pagintation.html file {% endcomment %} {% comment %} {% include
 'pagination.html' with page=posts %} # It is a function ased {% endcomment %}
 <br />
