@@ -15,4 +15,4 @@ your blog.Then built a search engine for my blog using the full-text search engi
 
 # HomePage
 
-/home/habib/Pictures/Screenshots/home.png
+
