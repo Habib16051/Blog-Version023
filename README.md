@@ -10,3 +10,4 @@ your blog.Then built a search engine for my blog using the full-text search engi
 1. Added Comment System for each blog post.
 2. Suggested Latest Posts and Most Commented Posts on the right side of the page based on created and published date.
 3. Extends Email recommendation system so that any post can be recommended via sending the post to anyone E-mail.
+4. Used third-party application (taggit) so that can we can use tags to find the similiar post to make this blog more user friendly.
