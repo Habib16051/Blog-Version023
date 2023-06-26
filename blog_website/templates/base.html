@@ -11,11 +11,28 @@
         padding: 10px;
         border: 1px;
       }
+      .content {
+        float: left;
+        width: 50%;
+        background-color: tan;
+        padding: 20px;
+        box-sizing: border-box;
+        border-radius: 5px;
+      }
+
+      .sidebar {
+        float: left;
+        width: 50%;
+        background-color: yellowgreen;
+        padding: 20px;
+        box-sizing: border-box;
+        border-radius: 5px;
+      }
     </style>
   </head>
   <body>
-    <div id="content">{% block content %} {% endblock %}</div>
-    <div id="sidebar">
+    <div class="content">{% block content %} {% endblock %}</div>
+    <div class="sidebar">
       <h2>My blog</h2>
       <p>This is my blog. I've written {% total_posts %} posts so far.</p>
       <p>
